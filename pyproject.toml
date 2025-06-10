@@ -1,0 +1,10 @@
+[project]
+name = "eraser"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pytaglib>=3.0.1",
+    "wxpython>=4.2.3; sys_platform != 'linux'",
+]
