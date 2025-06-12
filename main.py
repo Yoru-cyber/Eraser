@@ -11,9 +11,11 @@ class Eraser(wx.Frame):
         self.btnFilePath.Bind(wx.EVT_BUTTON, self.ReadFile)
         self.btnSaveChanges.Bind(wx.EVT_BUTTON, self.SaveChanges)
         self.Bind(wx.EVT_CLOSE, self.OnClose)
+
     def SaveChanges(self, event):
         self.file.tags['ARTIST'][0] = self.artist.GetValue()
         self.file.save()
+
     def ReadFile(self, event):
         with wx.FileDialog(self, wildcard="All (*.wav, *.mp3, *.flac)|*.wav;*.mp3;*.flac|WAV files (*.wav)|*.wav|MP3 files (*.mp3)|*.mp3|FLAC files (*.flac)|*.flac") as fileDialog:
             if fileDialog.ShowModal() == wx.ID_CANCEL:
@@ -21,7 +23,7 @@ class Eraser(wx.Frame):
         # Proceed loading the file chosen by the user
         pathname = fileDialog.GetPath()
         file = taglib.File(pathname, save_on_exit=False)
-            # TITLE, ALBUM, ALBUMARTIST, ARTIST,
+        # TITLE, ALBUM, ALBUMARTIST, ARTIST,
         self.file = file
         self.title.SetValue(file.tags['TITLE'][0])
         self.album.SetValue(file.tags['ALBUM'][0])
@@ -42,11 +44,14 @@ class Eraser(wx.Frame):
         self.title = wx.TextCtrl(self.pnl, value="", style=wx.TE_MULTILINE)
         self.album = wx.TextCtrl(self.pnl, value="", style=wx.TE_MULTILINE)
         self.artist = wx.TextCtrl(self.pnl, value="", style=wx.TE_MULTILINE)
-        self.gs.Add(self.title_label, pos=(0, 0), flag=wx.ALL | wx.EXPAND, border=10)
+        self.gs.Add(self.title_label, pos=(0, 0),
+                    flag=wx.ALL | wx.EXPAND, border=10)
         self.gs.Add(self.title, pos=(0, 1), flag=wx.ALL | wx.EXPAND, border=10)
-        self.gs.Add(self.album_label, pos=(0, 2), flag=wx.ALL | wx.EXPAND, border=10)
+        self.gs.Add(self.album_label, pos=(0, 2),
+                    flag=wx.ALL | wx.EXPAND, border=10)
         self.gs.Add(self.album, pos=(0, 3), flag=wx.ALL | wx.EXPAND, border=10)
-        self.gs.Add(self.artist_label, pos=(0, 4), flag=wx.ALL | wx.EXPAND, border=10)
+        self.gs.Add(self.artist_label, pos=(0, 4),
+                    flag=wx.ALL | wx.EXPAND, border=10)
         self.gs.Add(self.artist, pos=(0, 5),
                     flag=wx.ALL | wx.EXPAND, border=10)
         self.panel_content_sizer = wx.BoxSizer(wx.VERTICAL)
@@ -55,11 +60,13 @@ class Eraser(wx.Frame):
         self.frame_sizer = wx.BoxSizer(wx.VERTICAL)
         self.frame_sizer.Add(self.pnl, 1, wx.EXPAND)
         self.SetSizerAndFit(self.frame_sizer)
+
     def OnClose(self, event):
         print("Something")
         if self.file is not None:
             self.file.close()
         event.Skip()
+
 
 def main():
     app = wx.App()
